@@ -1,5 +1,7 @@
 🎵 CyberSonic 智能云音乐播放器
 
+中文 | English
+
 一个基于 Web 技术的现代化、极简风格在线音乐播放器。采用赛博朋克 (Cyberpunk) 视觉设计，支持多端响应式布局，集成了全网音乐搜索、歌词海报生成及 PWA 离线安装能力。
 
 ✨ 核心功能
@@ -76,4 +78,6 @@ manifest.json - PWA 配置文件，定义图标和应用名称。
 
 sw.js - Service Worker 脚本，负责离线缓存策略。
 
-README.md - 项目说明文档。
+README.md - 项目说明文档 (中文)。
+
+README_EN.md - 项目说明文档 (英文)。
