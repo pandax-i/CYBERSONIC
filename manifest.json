@@ -1,0 +1,16 @@
+{
+    "name": "CyberSonic 智能云音乐",
+    "short_name": "CyberSonic",
+    "start_url": "./CyberSonic.html",
+    "display": "standalone",
+    "background_color": "#0a0a0a",
+    "theme_color": "#00f2ea",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "https://cdn-icons-png.flaticon.com/512/1384/1384060.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
