@@ -1,52 +1,88 @@
 🎵 CyberSonic Smart Cloud Music Player
 
-中文 | English
+https://m.shanku.lol/
 
-A modern, minimalist online music player built with web technologies. Featuring a Cyberpunk visual design, responsive layout, cross-platform music search, lyric poster generation, and PWA offline installation capabilities.
+A modern, minimalist online music player built with web technologies. It fuses Cyberpunk visual aesthetics with Retro nostalgia, featuring a responsive layout, cross-platform music search, local file playback, lyric poster generation, and PWA offline installation capabilities.
+
+No backend database required. Data is stored locally. Ready to use out of the box.
 
 ✨ Key Features
 
-🔮 Immersive Visuals: Full-screen dynamic blur background + glassmorphism UI, featuring rhythmic spectrum visualization.
+🎧 Ultimate Audio Experience
 
-📡 Music Radar: One-click scan for trending songs across the web, randomly exploring different music styles (prioritizing NetEase Cloud Music source).
+Aggregated Search: One-click search across NetEase, QQ Music, and Kuwo (Prioritizes NetEase, with smart auto-fallback).
 
-📻 Retro FM: A unique retro cassette player mode that takes you back to the 80s-10s, accompanied by realistic white noise experiences.
+Music Radar: Randomly scans the web for trending songs to discover hidden gems.
 
-📸 Lyric Poster:
+Local Music: Support drag-and-drop or file selection for local MP3/FLAC/WAV playback with lossless quality.
 
-Support multi-selection of lyric lines.
+Smart Download: Automatically resolves high-quality download links and supports file renaming (Artist - Song Name.mp3).
 
-Automatically fetch high-definition covers.
+📺 Immersive Visuals
 
-One-click generation of exquisite posters (supports modern/retro filter styles).
+Cyberpunk UI: Full-screen dynamic blur background + Glassmorphism design + Neon color scheme.
 
-❤️ Local Favorites: Implements a database-free favorites function using LocalStorage for persistent data storage.
+Audio Visualization: Bottom Canvas spectrum bars dance to the rhythm of the music.
 
-📱 PWA Support:
+Vinyl Animation: Classic rotating record cover design.
 
-Installable to desktop or mobile home screens.
+📻 Special Mode: Retro FM
 
-Full-screen immersive runtime.
+Skeuomorphic Design: Switch to an 80s-10s style cassette radio interface with one click.
 
-Offline caching of UI resources.
+Immersive Experience: Real VFD fluorescent display, tactile button sound effects, and white noise transitions when tuning.
 
-⬇️ Smart Download: Automatically resolves high-quality download links and supports ID3 information completion (automatic filename renaming).
+Decade Channels: Curated channels for 80s, 90s, 00s, and 10s hits.
+
+🛠️ Utility Tools
+
+Lyric Poster: Select multiple lyric lines to generate exquisite posters (supports Modern/Retro filter styles).
+
+Data Management:
+
+Local Favorites: Database-free favorites using LocalStorage.
+
+Backup & Restore: Export collection to JSON or import from file to prevent data loss.
+
+PWA Support: Installable to desktop or mobile home screens, supports full-screen runtime and offline caching.
+
+⌨️ Keyboard Shortcuts
+
+Key
+
+Function
+
+Space
+
+Play / Pause
+
+← / →
+
+Rewind / Fast Forward 5s
+
+Ctrl + ← / →
+
+Previous / Next Song
+
+↑ / ↓
+
+Volume Up / Down
 
 🛠️ Tech Stack
 
-Core: Native HTML5, CSS3, JavaScript (ES6+).
+Core: Native HTML5, CSS3 (Flex/Grid), JavaScript (ES6+).
 
 Audio: HTML5 Audio API + Web Audio API (Visualization).
 
 Rendering: html2canvas (For poster generation).
 
-Icons: FontAwesome 6.
+Icons: FontAwesome 6 + Google Fonts (Caveat, VT323).
 
 API: Based on music-api.gdstudio.xyz aggregation interface.
 
 🚀 How to Run
 
-Due to the project's use of Service Worker (PWA) and Cross-Origin Image Rendering, directly opening the .html file may cause some features to fail. Please ensure to run it in a Local Server (Localhost) environment.
+Due to the project's use of Service Worker (PWA) and Cross-Origin Image Rendering, DO NOT open the .html file directly. Please ensure to run it in a Local Server (Localhost) environment.
 
 Method 1: VS Code (Recommended)
 
@@ -72,12 +108,12 @@ You can upload the folder directly to GitHub Pages, Vercel, or Netlify to get a 
 
 📂 File Structure
 
-CyberSonic.html - Main application entry.
+CyberSonic.html - Main application entry (Contains logic & styles).
 
-manifest.json - PWA configuration file, defining icons and app name.
+manifest.json - PWA configuration file.
 
-sw.js - Service Worker script, responsible for offline caching strategies.
+sw.js - Service Worker script.
 
-README.md - Project documentation (Chinese).
+README.md - Documentation in Chinese.
 
-README_EN.md - Project documentation (English).
+README_EN.md - Documentation in English.
