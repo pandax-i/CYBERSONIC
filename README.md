@@ -2,7 +2,7 @@
 
 中文 | English
 
-在线体验https://m.joru.email/
+在线体验https://m.shanku.lol/
 一个基于 Web 技术的现代化、极简风格在线音乐播放器。采用赛博朋克 (Cyberpunk) 视觉设计，支持多端响应式布局，集成了全网音乐搜索、歌词海报生成及 PWA 离线安装能力。
 
 ✨ 核心功能
