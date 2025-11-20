@@ -118,14 +118,71 @@ python -m http.server 8000
 
 你可以直接将文件夹上传到 GitHub Pages、Vercel 或 Netlify，即可获得一个永久可访问的在线地址（且自动支持 HTTPS，完美兼容 PWA）。
 
+📱 PWA 配置说明 (必须文件)
+
+为了实现 PWA 安装和离线功能，请确保项目根目录下包含以下两个文件：
+
+1. manifest.json
+
+定义应用名称、图标和启动方式。
+
+{
+    "name": "CyberSonic 智能云音乐",
+    "short_name": "CyberSonic",
+    "start_url": "./CyberSonic.html",
+    "display": "standalone",
+    "background_color": "#0a0a0a",
+    "theme_color": "#00f2ea",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "[https://cdn-icons-png.flaticon.com/512/1384/1384060.png](https://cdn-icons-png.flaticon.com/512/1384/1384060.png)",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
+
+
+2. sw.js
+
+Service Worker 缓存策略。注意：如果你修改了主 HTML 文件名，请同步修改下方的 CyberSonic.html。
+
+const CACHE_NAME = 'cybersonic-v1';
+const ASSETS = [
+    './CyberSonic.html',
+    '[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)',
+    '[https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js](https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js)',
+    '[https://cdn-icons-png.flaticon.com/512/1384/1384060.png](https://cdn-icons-png.flaticon.com/512/1384/1384060.png)'
+];
+
+self.addEventListener('install', (e) => {
+    e.waitUntil(
+        caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
+    );
+});
+
+self.addEventListener('fetch', (e) => {
+    // 音乐API请求依然走网络，不缓存 API 数据以保证新鲜度
+    if (e.request.url.includes('music-api.gdstudio.xyz')) {
+        return;
+    }
+
+    e.respondWith(
+        caches.match(e.request).then((response) => response || fetch(e.request))
+    );
+});
+
+
 📂 文件结构
 
-CyberSonic.html - 主程序入口（包含所有逻辑与样式）。
+CyberSonic.html - 主程序入口。
 
 manifest.json - PWA 配置文件。
 
-sw.js - Service Worker 离线缓存脚本。
+sw.js - Service Worker 脚本。
 
 README.md - 中文说明文档。
 
+README_EN.md - 英文说明文档。
 README_EN.md - 英文说明文档。
