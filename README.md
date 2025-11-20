@@ -1,7 +1,5 @@
 🎵 CyberSonic 智能云音乐播放器
 
-中文 | English
-
 在线体验https://m.shanku.lol/
 
 CyberSonic 是一个基于 Web 技术的现代化、极简风格在线音乐播放器。它融合了赛博朋克 (Cyberpunk) 的视觉美学与复古情怀，支持多端响应式布局，集成了全网音乐搜索、本地音乐播放、歌词海报生成及 PWA 离线安装能力。
