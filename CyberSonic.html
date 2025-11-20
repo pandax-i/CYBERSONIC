@@ -89,18 +89,6 @@
             transition: background-image 1s ease;
         }
 
-        /* 复古模式背景 */
-        body.retro-mode .bg-animation {
-            opacity: 0;
-        }
-
-        body.retro-mode .bg-overlay {
-            background: #2b2b2b;
-            background-image: radial-gradient(#3a3a3a 15%, transparent 16%), radial-gradient(#3a3a3a 15%, transparent 16%);
-            background-size: 20px 20px;
-            background-position: 0 0, 10px 10px;
-        }
-
         /* 主容器 */
         .app-container {
             width: 1200px;
@@ -122,6 +110,18 @@
         body.retro-mode .app-container {
             opacity: 0;
             pointer-events: none;
+        }
+
+        /* 复古模式背景 */
+        body.retro-mode .bg-animation {
+            opacity: 0;
+        }
+
+        body.retro-mode .bg-overlay {
+            background: #2b2b2b;
+            background-image: radial-gradient(#3a3a3a 15%, transparent 16%), radial-gradient(#3a3a3a 15%, transparent 16%);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
         }
 
         /* 1. 左侧导航栏 */
@@ -487,7 +487,7 @@
             height: 4px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 2px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             cursor: pointer;
             position: relative;
             z-index: 2;
@@ -559,6 +559,36 @@
             color: #000;
         }
 
+        /* 音量控制条 */
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .volume-slider {
+            -webkit-appearance: none;
+            width: 100px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            outline: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        /* 歌词卡片入口 */
         .card-entry-btn {
             position: absolute;
             top: 20px;
@@ -1052,8 +1082,9 @@
         /* 修复后的复古按钮样式 - 白字 */
         .retro-action-btn {
             background: #000;
-            color: var(--retro-green);
-            border: 2px solid var(--retro-green);
+            color: #fff;
+            /* 白色文字 */
+            border: 2px solid #fff;
             padding: 10px 30px;
             font-family: 'VT323', monospace;
             font-size: 24px;
@@ -1061,27 +1092,27 @@
             margin: 0 15px;
             text-transform: uppercase;
             transition: all 0.2s;
-            box-shadow: 0 0 5px var(--retro-green);
+            box-shadow: 0 0 5px #fff;
             line-height: 1;
         }
 
         .retro-action-btn:hover {
-            background: var(--retro-green);
+            background: #fff;
             color: #000;
-            box-shadow: 0 0 20px var(--retro-green);
+            box-shadow: 0 0 15px #fff;
         }
 
         /* 取消按钮 - 保持一致风格 */
         .retro-action-btn.cancel {
-            border-color: #fff;
-            color: #fff;
+            border-color: var(--retro-green);
+            color: var(--retro-green);
             box-shadow: none;
         }
 
         .retro-action-btn.cancel:hover {
-            background: #fff;
+            background: var(--retro-green);
             color: #000;
-            box-shadow: 0 0 10px #fff;
+            box-shadow: 0 0 10px var(--retro-green);
         }
 
         /* 制作卡片按钮新样式 */
@@ -1232,6 +1263,8 @@
             overflow: hidden;
             font-family: -apple-system, sans-serif;
             z-index: -9999;
+            pointer-events: none;
+            /* 确保不会被点击 */
         }
 
         .card-bg {
@@ -1670,8 +1703,16 @@
                 <div class="section-title"
                     style="margin-bottom: 20px; font-size: 24px; font-weight: bold; color: #fff; display:flex; align-items:center;">
                     <i class="fas fa-heart" style="color: var(--secondary); margin-right: 10px;"></i> 我的收藏
-                    <span style="font-size: 14px; opacity: 0.5; font-weight: normal; margin-left: auto;" id="favCount">0
-                        首</span>
+
+                    <div style="margin-left: auto; display: flex; gap: 10px;">
+                        <button class="action-pill" style="font-size: 12px; padding: 4px 10px;" onclick="exportData()"
+                            title="导出备份"><i class="fas fa-download"></i> 备份</button>
+                        <button class="action-pill" style="font-size: 12px; padding: 4px 10px;"
+                            onclick="document.getElementById('importFile').click()" title="恢复数据"><i
+                                class="fas fa-upload"></i> 恢复</button>
+                        <span style="font-size: 14px; opacity: 0.5; font-weight: normal; align-self: center;"
+                            id="favCount">0 首</span>
+                    </div>
                 </div>
                 <div class="song-list" id="favList">
                     <div style="text-align: center; color: #666; margin-top: 50px;">
@@ -1752,6 +1793,14 @@
                     <button class="ctrl-btn" onclick="nextSong()" title="下一首"><i
                             class="fas fa-step-forward"></i></button>
                 </div>
+
+                <!-- 音量控制条 -->
+                <div class="volume-control">
+                    <i class="fas fa-volume-down" style="font-size: 12px; opacity: 0.7;"></i>
+                    <input type="range" class="volume-slider" id="volumeSlider" min="0" max="100" value="100"
+                        oninput="setVolume(this.value)">
+                    <i class="fas fa-volume-up" style="font-size: 12px; opacity: 0.7;"></i>
+                </div>
             </div>
         </div>
     </div>
@@ -1777,6 +1826,9 @@
 
     <audio id="audio"></audio>
 
+    <!-- 数据恢复文件输入框 -->
+    <input type="file" id="importFile" accept=".json" style="display:none" onchange="importData(this.files)">
+
     <div class="modal" id="cardModal">
         <div class="modal-card">
             <h3 style="color: #fff; margin-bottom: 15px;">歌词卡片已生成</h3>
@@ -1793,7 +1845,9 @@
             <div class="card-lyrics-area" id="tplLyrics"></div>
 
             <div class="card-footer">
-                <img src="" class="card-cover" id="tplCover" crossorigin="anonymous">
+                <!-- 加上透明占位符防止破碎 -->
+                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"
+                    class="card-cover" id="tplCover" crossorigin="anonymous">
                 <div class="card-info">
                     <div class="card-song-name" id="tplTitle">歌曲名</div>
                     <div class="card-artist" id="tplArtist">歌手名</div>
@@ -2049,6 +2103,45 @@
                 btn.innerHTML = '<i class="far fa-heart"></i>';
                 btn.classList.remove('active');
             }
+        }
+
+        // 备份与恢复
+        function exportData() {
+            if (favoriteSongs.length === 0) return showToast("收藏夹为空，无需备份");
+            const dataStr = JSON.stringify(favoriteSongs);
+            const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr);
+
+            const exportFileDefaultName = `CyberSonic_Backup_${new Date().toLocaleDateString().replace(/\//g, '-')}.json`;
+
+            const linkElement = document.createElement('a');
+            linkElement.setAttribute('href', dataUri);
+            linkElement.setAttribute('download', exportFileDefaultName);
+            linkElement.click();
+            showToast("备份文件已下载");
+        }
+
+        function importData(files) {
+            if (files.length === 0) return;
+            const file = files[0];
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (Array.isArray(data)) {
+                        favoriteSongs = data;
+                        localStorage.setItem('cybersonic_favs', JSON.stringify(favoriteSongs));
+                        renderFavorites();
+                        showToast(`成功恢复 ${data.length} 首歌曲`);
+                    } else {
+                        showToast("文件格式错误");
+                    }
+                } catch (err) {
+                    showToast("无法解析文件");
+                }
+            };
+            reader.readAsText(file);
+            // Reset input
+            document.getElementById('importFile').value = '';
         }
 
         // 播放逻辑
@@ -2640,6 +2733,49 @@
             link.href = document.getElementById('resultImg').src;
             link.click();
         }
+
+        // --- 新增：键盘快捷键支持 ---
+        document.addEventListener('keydown', (e) => {
+            // 如果焦点在输入框内，不触发快捷键
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+            switch (e.code) {
+                case 'Space': // 空格：播放/暂停
+                    e.preventDefault(); // 防止页面滚动
+                    togglePlay();
+                    break;
+                case 'ArrowLeft': // 左箭头
+                    if (e.ctrlKey || e.metaKey) {
+                        prevSong(); // Ctrl + 左：上一首
+                    } else {
+                        audio.currentTime = Math.max(0, audio.currentTime - 5); // 左：快退 5秒
+                        showToast("⏪ 快退 5s");
+                    }
+                    break;
+                case 'ArrowRight': // 右箭头
+                    if (e.ctrlKey || e.metaKey) {
+                        nextSong(); // Ctrl + 右：下一首
+                    } else {
+                        audio.currentTime = Math.min(audio.duration, audio.currentTime + 5); // 右：快进 5秒
+                        showToast("⏩ 快进 5s");
+                    }
+                    break;
+                case 'ArrowUp': // 上箭头：音量 +
+                    e.preventDefault();
+                    const newVolUp = Math.min(1, audio.volume + 0.1);
+                    audio.volume = newVolUp;
+                    document.querySelector('.volume-slider').value = newVolUp * 100;
+                    showToast(`🔊 音量: ${Math.round(newVolUp * 100)}%`);
+                    break;
+                case 'ArrowDown': // 下箭头：音量 -
+                    e.preventDefault();
+                    const newVolDown = Math.max(0, audio.volume - 0.1);
+                    audio.volume = newVolDown;
+                    document.querySelector('.volume-slider').value = newVolDown * 100;
+                    showToast(`🔉 音量: ${Math.round(newVolDown * 100)}%`);
+                    break;
+            }
+        });
 
         // Init
         initFavorites();
