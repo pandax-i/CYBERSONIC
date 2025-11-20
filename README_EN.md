@@ -1,7 +1,6 @@
 🎵 CyberSonic Smart Cloud Music Player
 
 https://m.shanku.lol/
-
 A modern, minimalist online music player built with web technologies. It fuses Cyberpunk visual aesthetics with Retro nostalgia, featuring a responsive layout, cross-platform music search, local file playback, lyric poster generation, and PWA offline installation capabilities.
 
 No backend database required. Data is stored locally. Ready to use out of the box.
@@ -118,9 +117,65 @@ Method 3: Deploy to Web
 
 You can upload the folder directly to GitHub Pages, Vercel, or Netlify to get a permanent online address (with automatic HTTPS support, perfectly compatible with PWA).
 
+📱 PWA Configuration (Required Files)
+
+To enable PWA installation and offline capabilities, ensure the following two files are in the root directory:
+
+1. manifest.json
+
+Defines app name, icons, and startup behavior.
+
+{
+    "name": "CyberSonic Smart Cloud Music",
+    "short_name": "CyberSonic",
+    "start_url": "./CyberSonic.html",
+    "display": "standalone",
+    "background_color": "#0a0a0a",
+    "theme_color": "#00f2ea",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "[https://cdn-icons-png.flaticon.com/512/1384/1384060.png](https://cdn-icons-png.flaticon.com/512/1384/1384060.png)",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
+
+
+2. sw.js
+
+Service Worker caching strategy. Note: If you rename the main HTML file, please update CyberSonic.html below.
+
+const CACHE_NAME = 'cybersonic-v1';
+const ASSETS = [
+    './CyberSonic.html',
+    '[https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css](https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css)',
+    '[https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js](https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js)',
+    '[https://cdn-icons-png.flaticon.com/512/1384/1384060.png](https://cdn-icons-png.flaticon.com/512/1384/1384060.png)'
+];
+
+self.addEventListener('install', (e) => {
+    e.waitUntil(
+        caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
+    );
+});
+
+self.addEventListener('fetch', (e) => {
+    // Do not cache API requests to keep them fresh
+    if (e.request.url.includes('music-api.gdstudio.xyz')) {
+        return;
+    }
+
+    e.respondWith(
+        caches.match(e.request).then((response) => response || fetch(e.request))
+    );
+});
+
+
 📂 File Structure
 
-CyberSonic.html - Main application entry (Contains logic & styles).
+CyberSonic.html - Main application entry.
 
 manifest.json - PWA configuration file.
 
