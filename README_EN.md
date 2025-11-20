@@ -14,7 +14,7 @@ Aggregated Search: One-click search across NetEase, QQ Music, and Kuwo (Prioriti
 
 Music Radar: Randomly scans the web for trending songs to discover hidden gems.
 
-Local Music: Support drag-and-drop or file selection for local MP3/FLAC/WAV playback with lossless quality.
+Local Music: Support drag-and-drop or file selection for local MP3/FLAC/WAV playback with lossless quality (includes local spectrum visualization).
 
 Smart Download: Automatically resolves high-quality download links and supports file renaming (Artist - Song Name.mp3).
 
@@ -30,17 +30,29 @@ Vinyl Animation: Classic rotating record cover design.
 
 Skeuomorphic Design: Switch to an 80s-10s style cassette radio interface with one click.
 
-Immersive Experience: Real VFD fluorescent display, tactile button sound effects, and white noise transitions when tuning.
+Immersive Experience:
+
+Real VFD fluorescent display.
+
+Tactile physical button sound effects and interaction.
+
+Realistic white noise transitions when tuning.
 
 Decade Channels: Curated channels for 80s, 90s, 00s, and 10s hits.
 
 🛠️ Utility Tools
 
-Lyric Poster: Select multiple lyric lines to generate exquisite posters (supports Modern/Retro filter styles).
+Lyric Poster: Select multiple lyric lines to generate exquisite posters (supports automatic switching between Modern Minimalist or Retro Polaroid styles).
+
+Social Sharing: Generate deep links (e.g., ?share=...) to share songs. Friends can open the link to automatically play the specific song.
 
 Data Management:
 
 Local Favorites: Database-free favorites using LocalStorage.
+
+Multi-Playlist System: Create and manage custom playlists.
+
+External Import: Support parsing and importing NetEase/QQ Music playlist links.
 
 Backup & Restore: Export collection to JSON or import from file to prevent data loss.
 
@@ -60,13 +72,13 @@ Play / Pause
 
 Rewind / Fast Forward 5s
 
-Ctrl + ← / →
+Ctrl + ←
 
-Previous / Next Song
+Previous Song
 
-↑ / ↓
+Ctrl + →
 
-Volume Up / Down
+Next Song
 
 🛠️ Tech Stack
 
@@ -82,7 +94,7 @@ API: Based on music-api.gdstudio.xyz aggregation interface.
 
 🚀 How to Run
 
-Due to the project's use of Service Worker (PWA) and Cross-Origin Image Rendering, DO NOT open the .html file directly. Please ensure to run it in a Local Server (Localhost) environment.
+Due to the project's use of Service Worker (PWA) and Cross-Origin Image Rendering, DO NOT open the .html file directly. It may cause features like poster generation or PWA registration to fail. Please ensure to run it in a Local Server (Localhost) or HTTPS environment.
 
 Method 1: VS Code (Recommended)
 
